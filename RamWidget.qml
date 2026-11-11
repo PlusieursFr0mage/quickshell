@@ -4,20 +4,29 @@ import Quickshell.Io
 import QtQuick
 // Ram display with free Modules
 Text {
+  
+  property int memUsage: 0
   id: ram
-  color: "#FFFFFF"
-  font.pixelSize: 14
-  font.weight: 400
+  text: memUsage + " %"
+  
   Process {
     id: ramProc
-    command: ["sh", "-c", "free --giga | awk '/Mem:/ {print $3, $2}'"]
-    running: true
-    stdout: StdioCollector {
-      onStreamFinished: {ram.text = this.text}
-    }
+    command: ["sh", "-c", "free | grep Mem"]
+    stdout: SplitParser {
+        onRead: data => {
+          if (data) {
+            let parts = data.trim().split(/\s+/)
+            let total = parseInt(parts[1]) || 1
+            let used = parseInt(parts[2]) || 0
+            return memUsage = Math.round(100 * used / total)
+          }
+        }
+      } 
+      Component.onCompleted: running = true
   }
+
   Timer {
-    interval: 5000
+    interval: 2000
     running: true
     repeat: true
     onTriggered: ramProc.running = true

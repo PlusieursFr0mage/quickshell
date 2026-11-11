@@ -9,9 +9,14 @@ Scope {
 
     PanelWindow {
 
+        property int fontSize: 14
+        property int fontWeight: 550
+        property color fontColor: "#FFFFFF"
+        
         required property var modelData
         screen: modelData
         color: "#00181B20"
+        
         anchors {
             top: true
             left: true
@@ -20,13 +25,25 @@ Scope {
 
         implicitHeight: 32
 
+        Logo {
+          x: 8
+          anchors.verticalCenter: parent.verticalCenter
+        }
+
         ClockWidget {
-          anchors {
-            verticalCenter: parent.verticalCenter
-          }
+          font.pixelSize: fontSize
+          font.weight: fontWeight
+          color: fontColor
+
+          x: 33
+          anchors.verticalCenter: parent.verticalCenter
         }
         RamWidget {
-          x: 75
+          font.pixelSize: fontSize
+          font.weight: fontWeight
+          color: fontColor
+
+          x: 78
           anchors.verticalCenter: parent.verticalCenter
         }
     }
