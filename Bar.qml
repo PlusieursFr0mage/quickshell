@@ -11,23 +11,23 @@ Scope {
 
         required property var modelData
         screen: modelData
-
+        color: "#00181B20"
         anchors {
             top: true
             left: true
             right: true
         }
 
-        implicitHeight: 30
+        implicitHeight: 32
 
         ClockWidget {
-            x: 10
-            y: 10
+          anchors {
+            verticalCenter: parent.verticalCenter
+          }
         }
-
         RamWidget {
-            x: 70
-            y: 10
+          x: 75
+          anchors.verticalCenter: parent.verticalCenter
         }
     }
   }
